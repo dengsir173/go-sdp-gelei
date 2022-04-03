@@ -6,7 +6,7 @@
 导致解析sdp信息失败。
 对此对源go-sdp解析sdp的开源项目进行一个修改来适应特殊情况。
 
-修改后的sdp解析包地址为：
+修改后的sdp解析包地址为：github.com/dengsir173/go-sdp
 
 
 修改过的方法为：
