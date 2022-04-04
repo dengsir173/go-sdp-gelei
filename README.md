@@ -1,3 +1,4 @@
+​
 基于github项目进行修改：
 源项目地址：github.com/pixelbender/go-sdp
 
@@ -11,49 +12,8 @@
 
 修改过的方法为：
 
-func (d *Decoder) Decode() (*Session, error) {
-line := 0
-sess := new(Session)
-var media *Media
+func (d *Decoder) Decode() (*Session, error) { .....}
 
-	for {
-		line++
-		s, err := d.r.ReadLine()
-		if err != nil {
-			if err == io.EOF && sess.Origin != nil {
-				break
-			}
-			return nil, err
-		}
-		if len(s) == 0 && sess.Origin == nil {
-			break
-		}
-		/*if len(s) < 2 || s[1] != '=' {
-			return nil, &errDecode{errFormat, line, s}
-		}*/
-		var f uint8
-		var v string
+下图为不规范的sdp信息：（带有空行导致会解析失败）规范的sdp信息没有空行
 
-		if s != "" {
-			f, v = s[0], s[2:]
-		} else {
-			f, v = 0, ""
-		}
-
-		if f == 'm' {
-			media = new(Media)
-			err = d.media(media, f, v)
-			if err == nil {
-				sess.Media = append(sess.Media, media)
-			}
-		} else if media == nil {
-			err = d.session(sess, f, v)
-		} else {
-			err = d.media(media, f, v)
-		}
-		if err != nil {
-			return nil, &errDecode{err, line, s}
-		}
-	}
-	return sess, nil
-}
+![Snipaste_2022-04-04_22-43-10](https://user-images.githubusercontent.com/64079142/161570643-407b181f-e607-407d-be75-175631575bb3.png)
