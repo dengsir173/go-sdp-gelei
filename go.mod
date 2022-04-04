@@ -1,3 +1,3 @@
-module github.com/pixelbender/go-sdp
+module github.com/dengsir173/go-sdp
 
-go 1.13
+go 1.18
